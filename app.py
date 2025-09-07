@@ -4,6 +4,7 @@ import re
 from dotenv import load_dotenv
 from googleapiclient.discovery import build
 import pandas as pd
+import nltk
 from nltk.sentiment import SentimentIntensityAnalyzer
 import streamlit as st
 
@@ -11,6 +12,7 @@ load_dotenv()
 GOOGLE_API_KEY= os.getenv("GOOGLE_API_KEY")
 GOOGLE_CX=os.getenv("GOOGLE_CX")
 YOUTUBE_API_KEY=os.getenv("YOUTUBE_API_KEY")
+
 
 BRANDS = ["Atomberg", "Crompton", "Havells", "Usha", "Orient Electric", "Bajaj Electricals", "V-Guard",  "Polycab", "Superfan"]  #compititors
 
@@ -27,6 +29,10 @@ def count_mentions(text): #count mentions in post or comments
             counts[brand] += 1
     return counts
 # --------------------------------------------------
+try:
+    nltk.data.find("sentiment/vader_lexicon.zip")
+except LookupError:
+    nltk.download("vader_lexicon")
 score_analyzer = SentimentIntensityAnalyzer()
 
 def analyze_sentiment(text): #will analyze the text and return positive, negative or neutral
