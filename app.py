@@ -140,8 +140,10 @@ if st.button("run"):
         # print("\n    share of voice (SoV)    \n")
         # print(sov_df)
 
-        st.bar_chart(sov_df.set_index("brand")["SoV_%"])    
-
+        if sov_df is not None and "SOV_%" in sov_df.columns:
+            st.bar_chart(sov_df.set_index("brand")["SOV_%"])
+        else:
+            st.warning("No SoV data available. Check Google API keys and search results.")
 
     st.subheader("recommendation")
     recommendations = generate_recommendations(sov_df)
