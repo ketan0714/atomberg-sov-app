@@ -1,0 +1,9 @@
+pandas
+numpy
+tqdm
+tenacity
+nltk
+requests
+google-api-python-client
+python-dotenv
+streamlit
